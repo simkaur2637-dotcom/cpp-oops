@@ -1,0 +1,792 @@
+1. Introduction to OOPs
+
+Object-Oriented Programming (OOP) is a programming approach in which a program is designed around objects and classes rather than only functions and procedures. An object represents a real-world entity such as a student, car, bank account, employee, or mobile phone. Each object can have data that describes it and functions that perform operations on that data. C++ supports object-oriented programming and provides important OOP concepts such as class, object, encapsulation, abstraction, inheritance, polymorphism, and dynamic binding.
+
+The main purpose of OOP is to make programs more organized, reusable, secure, maintainable, and easier to modify. Instead of writing a very large program as one piece of code, we can divide it into classes and objects. For example, in a Student Management System, we can create a Student class containing student information such as name and marks and functions such as display() and calculateGrade().
+
+2. Features of OOP
+
+The major features of Object-Oriented Programming are classes, objects, encapsulation, abstraction, inheritance, polymorphism, dynamic binding, and message passing. These features allow programs to model real-world entities and relationships more naturally.
+
+Encapsulation combines data and functions into a single unit and controls access to the data. Abstraction hides unnecessary implementation details and shows only important information to the user. Inheritance allows a new class to acquire properties and functions from an existing class. Polymorphism allows the same function or interface to behave differently in different situations. These concepts work together to make object-oriented programs flexible and reusable.
+
+3. Class
+
+A class is a user-defined data type that acts as a blueprint or template for creating objects. A class defines the properties and behaviors that its objects will have. The properties are generally represented using data members, while behaviors are represented using member functions.
+
+For example:
+
+class Student {
+public:
+    string name;
+    int marks;
+
+    void display() {
+        cout << name << " " << marks;
+    }
+};
+
+Here, Student is a class. It contains two data members, name and marks, and one member function called display().
+
+A class itself does not represent a particular student. Instead, it describes what every Student object will contain.
+
+4. Object
+
+An object is an instance of a class. When an object is created, memory is allocated for its non-static data members. Multiple objects can be created from the same class, and each object has its own copy of the object's non-static data.
+
+For example:
+
+Student s1;
+Student s2;
+
+Here, s1 and s2 are two different objects of the Student class.
+
+We can assign values:
+
+s1.name = "Simran";
+s1.marks = 90;
+
+s2.name = "Aman";
+s2.marks = 85;
+
+Although both objects belong to the same class, their data can be different.
+
+5. Class and Object Difference
+
+A class is a blueprint, while an object is an actual instance created from that blueprint. A class defines what data and functions an object will have, whereas an object represents a particular entity and occupies memory for its data.
+
+For example, a Car class can define properties such as color, model, and speed. Individual objects such as car1 and car2 can have different colors and models.
+
+A simple way to remember this is:
+
+Class = Blueprint
+Object = Real instance
+
+6. Access Specifiers
+
+C++ provides three main access specifiers: public, private, and protected. They determine where class members can be accessed.
+
+Public
+
+Members declared under public can generally be accessed from outside the class.
+
+class Student {
+public:
+    string name;
+};
+
+We can write:
+
+Student s;
+s.name = "Simran";
+Private
+
+Members declared under private cannot be directly accessed from outside the class. They can normally be accessed through member functions.
+
+class Student {
+private:
+    int marks;
+};
+
+This helps protect important data.
+
+Protected
+
+Protected members are accessible within the class and its derived classes. They are particularly useful when inheritance is involved.
+
+By default, members of a class are private in C++, while members of a struct are public by default.
+
+7. Encapsulation
+
+Encapsulation means wrapping data and the functions that operate on that data into a single unit, usually a class. It also involves restricting direct access to some data using access control.
+
+For example:
+
+class BankAccount {
+private:
+    double balance;
+
+public:
+    void setBalance(double b) {
+        if (b >= 0)
+            balance = b;
+    }
+
+    double getBalance() {
+        return balance;
+    }
+};
+
+Here, balance is private, so outside code cannot directly modify it. The setBalance() and getBalance() functions provide controlled access.
+
+Encapsulation improves data security, maintainability, and control. It prevents external code from directly changing internal data in an inappropriate way.
+
+8. Abstraction
+
+Abstraction means hiding unnecessary implementation details and exposing only the essential features to the user. The user focuses on what an object does rather than how it performs the operation internally.
+
+For example, when we use an ATM, we select options such as withdrawing money or checking balance. We do not need to know the internal implementation of the banking system.
+
+In C++, abstraction can be achieved using classes, access specifiers, abstract classes, and pure virtual functions.
+
+For example:
+
+class ATM {
+public:
+    void withdraw() {
+        // internal implementation
+    }
+};
+
+The user only needs to know that withdraw() performs withdrawal; the internal details can remain hidden.
+
+9. Encapsulation vs Abstraction
+
+Although encapsulation and abstraction are related, they are different concepts.
+
+Encapsulation focuses on bundling data and methods together and controlling access to data.
+
+Abstraction focuses on hiding implementation details and showing only essential functionality.
+
+A simple way to remember:
+
+Encapsulation → How to protect data?
+
+Abstraction → What should the user see?
+
+10. Constructor
+
+A constructor is a special member function of a class that is automatically called when an object is created. Its main purpose is to initialize the object's data members.
+
+A constructor has the same name as the class and does not have a return type.
+
+Example:
+
+class Student {
+public:
+    string name;
+
+    Student() {
+        name = "Unknown";
+    }
+};
+
+When we write:
+
+Student s;
+
+the constructor is automatically called.
+
+11. Types of Constructors
+
+There are several commonly discussed types of constructors: default constructor, parameterized constructor, copy constructor, and constructors created through overloading.
+
+A default constructor takes no arguments.
+
+Student() {
+    name = "Unknown";
+}
+
+A parameterized constructor accepts arguments.
+
+Student(string n) {
+    name = n;
+}
+
+We can create an object using:
+
+Student s("Simran");
+
+A copy constructor creates a new object using another object of the same class.
+
+Student(const Student &s) {
+    name = s.name;
+}
+
+Constructors can also be overloaded by creating multiple constructors with different parameter lists.
+
+12. Destructor
+
+A destructor is a special member function that is automatically called when an object is destroyed or goes out of scope. It is used to perform cleanup operations, especially when a class manages resources such as dynamically allocated memory.
+
+A destructor has the same name as the class but begins with ~.
+
+Example:
+
+class Student {
+public:
+    ~Student() {
+        cout << "Object destroyed";
+    }
+};
+
+Unlike constructors, a destructor does not take parameters and does not have a return type. A class can have only one destructor.
+
+13. Constructor vs Destructor
+
+A constructor is called when an object is created, while a destructor is called when an object is destroyed.
+
+The constructor is generally used for initialization, while the destructor is generally used for cleanup.
+
+Example:
+
+Object created → Constructor
+Object used
+Object destroyed → Destructor
+14. this Pointer
+
+The this pointer is a special pointer available inside non-static member functions of a class. It points to the current object.
+
+For example:
+
+class Student {
+private:
+    int marks;
+
+public:
+    void setMarks(int marks) {
+        this->marks = marks;
+    }
+};
+
+Here, this->marks refers to the data member of the current object, while marks refers to the function parameter.
+
+The this pointer is particularly useful when local variable names and data-member names are the same.
+
+15. Static Data Members
+
+A static data member belongs to the class rather than to individual objects. Only one shared copy exists for the entire class.
+
+Example:
+
+class Student {
+public:
+    static int count;
+};
+
+int Student::count = 0;
+
+If several objects are created, they all share the same count.
+
+Static members are useful when we need to store information that should be common to all objects, such as the total number of objects created.
+
+16. Static Member Function
+
+A static member function belongs to the class rather than to an individual object. It can be called using the class name.
+
+Example:
+
+class Student {
+public:
+    static void show() {
+        cout << "Hello";
+    }
+};
+
+We can call:
+
+Student::show();
+
+A static member function cannot directly access non-static data members because it does not operate on a particular object.
+
+17. Inheritance
+
+Inheritance is an OOP concept in which one class acquires properties and behaviors from another class. The existing class is called the base class, parent class, or superclass, while the new class is called the derived class, child class, or subclass.
+
+For example:
+
+class Animal {
+public:
+    void eat() {
+        cout << "Eating";
+    }
+};
+
+class Dog : public Animal {
+public:
+    void bark() {
+        cout << "Barking";
+    }
+};
+
+Now a Dog object can use both eat() and bark().
+
+Dog d;
+d.eat();
+d.bark();
+
+Inheritance promotes code reuse because the derived class can use functionality already defined in the base class.
+
+18. Types of Inheritance
+
+C++ supports several forms of inheritance: single, multiple, multilevel, hierarchical, and hybrid inheritance.
+
+Single Inheritance
+
+One derived class inherits from one base class.
+
+A
+↓
+B
+Multilevel Inheritance
+
+A class is derived from another derived class.
+
+A
+↓
+B
+↓
+C
+Multiple Inheritance
+
+One derived class inherits from more than one base class.
+
+A     B
+ \   /
+   C
+Hierarchical Inheritance
+
+Multiple derived classes inherit from the same base class.
+
+      A
+     / \
+    B   C
+Hybrid Inheritance
+
+Hybrid inheritance is a combination of two or more types of inheritance.
+
+19. Modes of Inheritance
+
+C++ provides three inheritance modes: public, protected, and private inheritance.
+
+Example:
+
+class Dog : public Animal {
+};
+
+In public inheritance, public members of the base class remain public in the derived class, while protected members remain protected.
+
+In protected inheritance, public and protected members of the base class become protected in the derived class.
+
+In private inheritance, public and protected members of the base class become private in the derived class.
+
+Private members of the base class are not directly accessible in the derived class.
+
+20. Polymorphism
+
+Polymorphism means "many forms." It allows the same interface or function name to behave differently depending on the situation.
+
+For example, the same function name draw() could behave differently for a circle, rectangle, or triangle.
+
+C++ supports two major forms of polymorphism:
+
+Compile-time polymorphism
+
+Run-time polymorphism
+
+21. Compile-Time Polymorphism
+
+Compile-time polymorphism is resolved during compilation. It is mainly achieved through function overloading and operator overloading.
+
+Function Overloading
+
+Function overloading occurs when multiple functions have the same name but different parameter lists.
+
+class Calculator {
+public:
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+};
+
+Here, add() is overloaded.
+
+The compiler determines which function should be called based on the arguments.
+
+22. Operator Overloading
+
+Operator overloading allows operators such as +, -, ==, and << to work with user-defined objects.
+
+For example, suppose we have a Complex class. We can overload the + operator so that two complex-number objects can be added naturally.
+
+class Complex {
+public:
+    int real;
+
+    Complex operator+(Complex obj) {
+        Complex temp;
+        temp.real = real + obj.real;
+        return temp;
+    }
+};
+
+Operator overloading makes user-defined objects easier and more natural to work with.
+
+23. Run-Time Polymorphism
+
+Run-time polymorphism is resolved during program execution. It is generally achieved using inheritance, function overriding, and virtual functions.
+
+Suppose a base class contains a virtual function and a derived class provides its own implementation. When the function is called through a base-class pointer or reference, the appropriate derived-class version can be selected at runtime.
+
+Example:
+
+class Animal {
+public:
+    virtual void sound() {
+        cout << "Animal sound";
+    }
+};
+
+class Dog : public Animal {
+public:
+    void sound() override {
+        cout << "Dog barks";
+    }
+};
+
+Then:
+
+Animal* a = new Dog();
+a->sound();
+delete a;
+
+Because sound() is virtual, the derived class implementation is selected.
+
+24. Function Overriding
+
+Function overriding occurs when a derived class provides a new implementation of a function that already exists in the base class with the same signature.
+
+Example:
+
+class Animal {
+public:
+    virtual void sound() {
+        cout << "Animal sound";
+    }
+};
+
+class Dog : public Animal {
+public:
+    void sound() override {
+        cout << "Dog sound";
+    }
+};
+
+Here, Dog overrides the sound() function of Animal.
+
+The override keyword helps the compiler verify that the function is actually overriding a virtual function from the base class.
+
+25. Virtual Function
+
+A virtual function is a member function declared using the virtual keyword in the base class. It enables runtime polymorphism when called through a base-class pointer or reference.
+
+Example:
+
+class Animal {
+public:
+    virtual void sound() {
+        cout << "Animal sound";
+    }
+};
+
+If a derived class overrides this function, the derived implementation can be selected at runtime.
+
+Virtual functions are an important concept for achieving dynamic behavior in C++.
+
+26. Pure Virtual Function
+
+A pure virtual function is a virtual function that has no implementation in the base class and is declared using = 0.
+
+Example:
+
+class Shape {
+public:
+    virtual void area() = 0;
+};
+
+A class containing at least one pure virtual function is called an abstract class.
+
+Derived classes generally need to provide an implementation of the pure virtual function if they are to become concrete classes.
+
+27. Abstract Class
+
+An abstract class is a class that cannot be instantiated directly. It is generally used as a base class and defines a common interface for derived classes.
+
+Example:
+
+class Shape {
+public:
+    virtual void area() = 0;
+};
+
+We cannot normally write:
+
+Shape s;
+
+Instead, derived classes can implement the area() function.
+
+class Circle : public Shape {
+public:
+    void area() override {
+        cout << "Circle area";
+    }
+};
+
+Abstract classes are useful for implementing abstraction and runtime polymorphism.
+
+28. Dynamic Binding
+
+Binding refers to connecting a function call with the function implementation that will execute. In early or static binding, the decision is made during compilation. In late or dynamic binding, the decision is made during runtime.
+
+Virtual functions enable dynamic binding in C++.
+
+For example, if a base-class pointer points to a derived-class object and calls a virtual function, the derived implementation can be selected at runtime.
+
+29. Friend Function
+
+A friend function is a function that is not a member of a class but is allowed to access the class's private and protected members.
+
+It is declared using the friend keyword.
+
+Example:
+
+class Student {
+private:
+    int marks = 90;
+
+public:
+    friend void display(Student s);
+};
+
+void display(Student s) {
+    cout << s.marks;
+}
+
+Although display() is not a member function, it can access marks because it is declared as a friend.
+
+Friend functions should be used carefully because they provide access to private data from outside the class.
+
+30. Composition
+
+Composition represents a strong "has-a" relationship between classes. One class contains an object of another class as a data member.
+
+For example, a Car has an Engine.
+
+class Engine {
+};
+
+class Car {
+private:
+    Engine engine;
+};
+
+Here, Car contains an Engine object.
+
+Composition is often useful when one object is conceptually made up of another object.
+
+31. Aggregation
+
+Aggregation is also a "has-a" relationship, but it represents a weaker relationship than composition. The contained object can generally exist independently of the container.
+
+For example, a university has students, but a student can exist independently of a particular university object.
+
+The main difference is about ownership and lifetime. In composition, the contained object's lifetime is strongly tied to the containing object, while in aggregation, the contained object can exist independently.
+
+32. Association
+
+Association represents a general relationship between two classes. It does not necessarily mean ownership.
+
+For example, a Teacher teaches a Student.
+
+Teacher ───── Student
+
+Both objects can exist independently, but they have a relationship with each other.
+
+33. Message Passing
+
+In OOP, objects communicate with one another by calling functions or methods. This communication is sometimes referred to as message passing.
+
+For example:
+
+student.display();
+
+Here, a message can be viewed as being sent to the student object asking it to execute its display() function.
+
+34. Data Hiding
+
+Data hiding means preventing direct access to internal data from outside the class. It is commonly achieved by declaring data members as private or protected and providing controlled access through public member functions.
+
+For example:
+
+class Account {
+private:
+    double balance;
+
+public:
+    void deposit(double amount) {
+        if (amount > 0)
+            balance += amount;
+    }
+};
+
+External code cannot directly change balance.
+
+Data hiding helps improve security and prevents accidental modification of important data.
+
+35. Getter and Setter
+
+A getter is a function used to retrieve the value of a private data member, while a setter is a function used to modify it.
+
+Example:
+
+class Student {
+private:
+    int marks;
+
+public:
+    void setMarks(int m) {
+        marks = m;
+    }
+
+    int getMarks() {
+        return marks;
+    }
+};
+
+Here, setMarks() is a setter and getMarks() is a getter.
+
+Setters can also perform validation before modifying data.
+
+36. Pointer to Object
+
+A pointer can store the address of an object.
+
+Student s;
+
+Student* ptr = &s;
+
+We can access members through the pointer using the arrow operator:
+
+ptr->display();
+
+The -> operator is commonly used when accessing a class member through an object pointer.
+
+37. Dynamic Object Creation
+
+Objects can be dynamically created using the new operator.
+
+Student* s = new Student();
+
+The object is created dynamically and accessed through a pointer.
+
+When dynamically allocated memory is no longer required, it should be released using delete.
+
+delete s;
+
+In modern C++, smart pointers such as unique_ptr and shared_ptr are generally preferred for managing dynamic memory safely.
+
+38. Exception Handling in OOP
+
+C++ provides exception handling to deal with exceptional situations during program execution. The main keywords are try, throw, and catch.
+
+Example:
+
+try {
+    int age = -5;
+
+    if (age < 0)
+        throw "Invalid age";
+}
+catch (const char* message) {
+    cout << message;
+}
+
+The code that may produce an exception is placed inside try, an exception is generated using throw, and the exception is handled using catch.
+
+Exception handling helps separate normal program logic from error-handling logic.
+
+39. Templates and OOP
+
+C++ templates allow us to write generic code that works with different data types. Templates are not an OOP pillar themselves, but they are an important C++ feature frequently used with classes and STL.
+
+Example:
+
+template <class T>
+class Box {
+private:
+    T value;
+
+public:
+    Box(T v) {
+        value = v;
+    }
+
+    T getValue() {
+        return value;
+    }
+};
+
+Now we can create:
+
+Box<int> b1(10);
+Box<string> b2("Hello");
+
+The same class works with different types.
+
+40. Four Main Pillars of OOP
+
+The four major pillars of OOP are:
+
+1. Encapsulation
+
+Wrapping data and methods together and controlling access to data.
+
+2. Abstraction
+
+Hiding implementation details and exposing only necessary functionality.
+
+3. Inheritance
+
+Acquiring properties and behaviors from an existing class.
+
+4. Polymorphism
+
+Allowing the same interface or function to have multiple behaviors.
+
+A useful memory trick is:
+
+E-A-I-P
+
+Encapsulation
+Abstraction
+Inheritance
+Polymorphism
+
+41. Advantages of OOP
+
+OOP provides several advantages. It promotes code reusability through inheritance and allows large programs to be divided into smaller classes and objects. Encapsulation provides better control over data, while abstraction reduces unnecessary complexity. Polymorphism makes programs more flexible because the same interface can work with different object types. OOP also improves maintainability, scalability, modularity, and organization.
+
+For large software projects, these advantages make it easier for multiple developers to work on different components without having to understand the entire program.
+
+42. Disadvantages of OOP
+
+OOP can sometimes require more planning and code compared with simple procedural programming. Creating many classes and objects can increase program complexity for small tasks. Some OOP features can also introduce additional memory usage or runtime overhead. For very simple programs, using classes and complex inheritance structures may not be necessary.
+
+Therefore, OOP is particularly useful when the program has complex entities, relationships, reusable components, or needs to be maintained for a long period.
+
+43. Procedural Programming vs OOP
+
+In procedural programming, the program is primarily organized around functions and procedures. Data and functions are often treated separately.
+
+In object-oriented programming, the program is organized around classes and objects, where data and related functions are combined.
+
+Procedural Programming	OOP
+Function-oriented	Object-oriented
+Data and functions are often separate	Data and functions are combined
+Less emphasis on data hiding	Strong data protection
+Reusability can be more limited	High reusability
+Suitable for smaller/simple programs	Useful for larger and complex systems
